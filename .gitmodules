@@ -1,0 +1,3 @@
+[submodule "cmgmp/external/dartsim"]
+	path = cmgmp/external/dartsim
+	url = https://github.com/dartsim/dart.git
