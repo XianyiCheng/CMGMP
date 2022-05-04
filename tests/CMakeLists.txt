@@ -1,6 +1,8 @@
 add_executable(test_utils test_utils.cpp)
 add_executable(test_mode test_contact_mode.cpp)
 add_executable(test_dart test_dartworld.cpp)
+add_executable(test_kr5 test_KR5.cpp)
+add_executable(test_ddhand test_ddhand.cpp)
 
 set(example_required_libraries 
     cmgmp-utils cmgmp-contact
@@ -28,3 +30,9 @@ target_link_libraries(test_mode PRIVATE ${example_required_libraries})
 
 target_include_directories(test_dart PRIVATE ${example_include_dirs} "${PROJECT_SOURCE_DIR}/cmgmp/external/dartsim")
 target_link_libraries(test_dart PRIVATE ${example_required_libraries} cmgmp-world ${dart_libs})
+
+target_include_directories(test_kr5 PRIVATE ${example_include_dirs} "${PROJECT_SOURCE_DIR}/cmgmp/external/dartsim")
+target_link_libraries(test_kr5 PRIVATE ${example_required_libraries} cmgmp-world ${dart_libs})
+
+target_include_directories(test_ddhand PRIVATE ${example_include_dirs} "${PROJECT_SOURCE_DIR}/cmgmp/external/dartsim")
+target_link_libraries(test_ddhand PRIVATE ${example_required_libraries} cmgmp-world ${dart_libs})
