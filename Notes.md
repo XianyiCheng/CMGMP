@@ -1,0 +1,1 @@
+Collision detection output is different for different collision detector in dart! You need different constraint projection if you switch from bullet collision detection to dart collision detection!!!
