@@ -20,7 +20,7 @@ public:
 
     double fingertip_radius = 0;
     double max_open_dist = 0;
-    double finger_length = 0
+    double finger_length = 0;
 
     DartParallelJawGripper(double max_d, double radius, double fl = 0);
     DartParallelJawGripper(const DartParallelJawGripper& dpm): DartManipulatorTemplate(dpm), fingertip_radius(dpm.fingertip_radius), max_open_dist(dpm.max_open_dist){}

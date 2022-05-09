@@ -117,13 +117,13 @@ DartParallelJawGripper::DartParallelJawGripper(double max_d, double radius, doub
     this->n_pts = 2;
 
     // add fingertips
-    for (int i=0; i< n; i++){
+    for (int i=0; i< this->n_pts; i++){
         SkeletonPtr ball = createFreeBall("fingertip_"+std::to_string(i), radius, Vector3d(0.3,0.3,0.8));
         this->addBody(ball);
     }
 
     // add fingers
-    for (int i=0; i< n; i++){
+    for (int i=0; i< this->n_pts; i++){
         SkeletonPtr cylinder = createFreeCylinder("finger_"+std::to_string(i), radius*0.7, this->finger_length - 2.2*radius);
         this->addBody(cylinder);
     }
@@ -132,7 +132,7 @@ DartParallelJawGripper::DartParallelJawGripper(double max_d, double radius, doub
     this->addBody(cylinder);
 }
 
-bool DartParallelJawGripper::setupCollisionGroup(const VectorXd& config, const Vector7d& object_pose, World& W){
+bool DartParallelJawGripper::setupCollisionGroup(WorldPtr world){
     
     // don't collide the fingertips.
     auto collisionEngine = world->getConstraintSolver()->getCollisionDetector();
@@ -262,7 +262,7 @@ void DartParallelJawGripper::setConfig(const VectorXd& config, const Vector7d& o
         Vector7d gripper_pose;
         gripper_pose << gripper_pos[0], gripper_pos[1], gripper_pos[2], qt.x(), qt.y(), qt.z(), qt.w();
         Matrix4d gripper_T = T*pose2SE3(gripper_pose);
-        this->bodies[4]->setPositions(pose7d_to_pose6d(SE32pose(gripper_T)););
+        this->bodies[4]->setPositions(pose7d_to_pose6d(SE32pose(gripper_T)));
     }
 
     // fingers
@@ -271,13 +271,13 @@ void DartParallelJawGripper::setConfig(const VectorXd& config, const Vector7d& o
         Vector7d finger_pose;
         finger_pose << finger_pos_1[0], finger_pos_1[1], finger_pos_1[2], qf.x(), qf.y(), qf.z(), qf.w();
         Matrix4d finger_T = T*pose2SE3(finger_pose);
-        this->bodies[2]->setPositions(pose7d_to_pose6d(SE32pose(finger_T)););
+        this->bodies[2]->setPositions(pose7d_to_pose6d(SE32pose(finger_T)));
     }
     {
         Vector7d finger_pose;
         finger_pose << finger_pos_2[0], finger_pos_2[1], finger_pos_2[2], qf.x(), qf.y(), qf.z(), qf.w();
         Matrix4d finger_T = T*pose2SE3(finger_pose);
-        this->bodies[3]->setPositions(pose7d_to_pose6d(SE32pose(finger_T)););
+        this->bodies[3]->setPositions(pose7d_to_pose6d(SE32pose(finger_T)));
     }
 
 

@@ -10,7 +10,7 @@ set(example_required_libraries
 
 set(example_include_dirs 
     "${PROJECT_SOURCE_DIR}" 
-    "${PROJECT_SOURCE_DIR}/cmgmp/external/eigen3"
+    "${PROJECT_SOURCE_DIR}/cmgmp/external/eigen3" 
     )
 
 set(example_link_dirs 

@@ -406,6 +406,8 @@ bool DartDDHand::setBoxConstraints(int side, const Vector3d& ub, const Vector3d&
         ub_1 = ub;
         lb_1 = lb;
     }
+
+    return true;
 }
 
 VectorXd DartDDHand::getHandFrameConfig(const VectorXd& config, const Vector7d& object_pose){
