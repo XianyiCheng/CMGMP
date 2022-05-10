@@ -8,7 +8,7 @@
 #include <modus/modes/enumerate.hpp>
 #include <modus/modes/geometry/interior_point.hpp>
 #include <modus/common/linear_algebra.hpp>
-#include <modus/common/serialization.hpp>
+// #include <modus/common/serialization.hpp>
 // #include <modus/common/logging.hpp>
 #include <modus/modes/geometry/incidence_graph.hpp>
 

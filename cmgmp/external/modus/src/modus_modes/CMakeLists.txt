@@ -27,7 +27,9 @@ target_include_directories(modus_modes
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${EIGEN3_INCLUDE_DIR}
-    ${QHULL_INCLUDE_DIR})
+    ${QHULL_INCLUDE_DIR}
+    ${PROJECT_SOURCE_DIR}/include 
+    )
     #${ORTOOLS_INCLUDE_DIR})
 
 # Add compiler requirements here.

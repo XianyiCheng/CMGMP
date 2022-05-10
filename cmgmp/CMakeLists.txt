@@ -22,6 +22,7 @@ add_library(cmgmp-utils
     utilities/sample.cpp 
     utilities/utilities.cpp 
     utilities/sample_grasp.cpp )
+    
 target_include_directories(cmgmp-utils PRIVATE ${cmgmp_include_dirs})
 target_link_libraries(cmgmp-utils PRIVATE ${cmgmp_required_libraries})
 

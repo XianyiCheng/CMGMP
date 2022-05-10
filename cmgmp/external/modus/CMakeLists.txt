@@ -12,12 +12,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   "MinSizeRel" "RelWithDebInfo")
 endif()
 
-option(BUILD_MODUS_COMMON       "Build modus common library"        ON)
-option(BUILD_MODUS_SYSTEM       "Build modus system library"        ON)
-option(BUILD_MODUS_GEOMETRY     "Build modus geometry library"      ON)
-option(BUILD_MODUS_KINEMATICS   "Build modus kinematics library"    OFF)
-option(BUILD_MODUS_MODES        "Build modus enumeration library"   ON)
-option(BUILD_MODUS_DYNAMICS     "Build modus dynamics library"      OFF)
+
 
 
 option(MODUS_ASSERTS_ENABLED "Enable asserts" ON)
@@ -37,6 +32,7 @@ set(EIGEN3_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/../eigen3")
 # find_package(ortools CONFIG REQUIRED)
 find_package(Qhull REQUIRED)
 
+include_directories(/include)
 
 # include(FetchContent)
 # FetchContent_Declare(
@@ -57,23 +53,15 @@ find_package(Qhull REQUIRED)
 # Add subdirectory targets.
 ################################################################################
 
-if (BUILD_MODUS_COMMON)
-  add_subdirectory(src/modus_common)
-endif()
 
-if (BUILD_MODUS_SYSTEM)
-  add_subdirectory(src/modus_system)
-endif()
+add_subdirectory(src/modus_common)
 
-if (BUILD_MODUS_GEOMETRY)
-  add_subdirectory(src/modus_geometry)
-endif()
+add_subdirectory(src/modus_system)
 
-if (BUILD_MODUS_KINEMATICS)
-  add_subdirectory(src/modus_kinematics)
-endif()
+add_subdirectory(src/modus_geometry)
 
-if (BUILD_MODUS_MODES)
-  add_subdirectory(src/modus_modes)
-endif()
+add_subdirectory(src/modus_kinematics)
+
+add_subdirectory(src/modus_modes)
+
 

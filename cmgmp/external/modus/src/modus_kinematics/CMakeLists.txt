@@ -20,11 +20,12 @@ target_include_directories(modus_kinematics
   # $<INSTALL_INTERFACE:include>
   # ${EIGEN3_INCLUDE_DIR}
   # ${CMAKE_INSTALL_PREFIX}/include
+  ${PROJECT_SOURCE_DIR}/include
 )
 
 # Add compiler requirements here.
 target_compile_features(modus_kinematics PUBLIC cxx_std_17)
 
 # Link libraries.
-target_link_libraries(modus_kinematics modus_common modus_system gcc_s dw)
-
+# target_link_libraries(modus_kinematics modus_common modus_system gcc_s dw)
+target_link_libraries(modus_kinematics modus_common modus_system gcc_s)

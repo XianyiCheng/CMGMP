@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.14)
 # Source files.
 set(MODUS_COMMON_SOURCE
   assert.cpp
-  backward.cpp
-  serialization.cpp
+  # backward.cpp
+  # serialization.cpp
   convex_hull.cpp
   linear_algebra.cpp
   # logging.cpp
@@ -21,6 +21,7 @@ target_include_directories(modus_common
   ${EIGEN3_INCLUDE_DIR}
   ${QHULL_INCLUDE_DIR}
   ${CMAKE_INSTALL_PREFIX}/include
+  ${PROJECT_SOURCE_DIR}/include
 )
 
 # Add compiler requirements here.
@@ -41,4 +42,5 @@ if (MODUS_ASSERTS_ENABLED)
 endif()
 
 # Link libraries.
-target_link_libraries(modus_common gcc_s dw ${QHULLCPP_LIBRARY} ${QHULL_R_LIBRARY})
+# target_link_libraries(modus_common gcc_s dw ${QHULLCPP_LIBRARY} ${QHULL_R_LIBRARY})
+target_link_libraries(modus_common gcc_s ${QHULLCPP_LIBRARY} ${QHULL_R_LIBRARY})

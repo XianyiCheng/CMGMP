@@ -1,14 +1,29 @@
 
 install 
 ```   
-    sudo apt install libglpk-dev
-    sudo apt-get install build-essential cmake pkg-config git
-    sudo apt-get install libeigen3-dev libassimp-dev libccd-dev libfcl-dev libboost-regex-dev libboost-system-dev
-    sudo apt-get install libopenscenegraph-dev
-    sudo apt-get install libbullet-dev
+sudo apt-get install build-essential cmake pkg-config git
+
+sudo apt-get install libglpk-dev libeigen3-dev libassimp-dev libccd-dev libfcl-dev libboost-regex-dev libboost-system-dev libopenscenegraph-dev libbullet-dev libtinyxml2-dev liburdfdom-dev libxi-dev libxmu-dev freeglut3-dev
+    
 ```
+install qhull
 
 Update the external libraries
 ```
-    git submodule update --init --recursive
+git submodule update --init --recursive --progress
+```
+
+Use cmake to build this project in the project root folder
+
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
+Check out examples in the build folder
+
+```
+./examples/[name of the example]
 ```

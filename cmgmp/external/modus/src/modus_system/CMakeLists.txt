@@ -14,6 +14,7 @@ target_include_directories(modus_system
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
   ${EIGEN3_INCLUDE_DIR}
+  ${PROJECT_SOURCE_DIR}/include
   )
 
 # Add compiler requirements here.
