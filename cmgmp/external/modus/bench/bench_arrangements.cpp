@@ -1,7 +1,7 @@
 #include <modus/modes/geometry/arrangements.hpp>
 #include <chrono>
 #include <iostream>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 
 
 template <std::size_t alignment>
@@ -11,7 +11,7 @@ inline bool is_aligned(void * ptr) noexcept {
 }
 
 int main(int argc, char* argv[]) {
-    google::InitGoogleLogging(argv[0]);
+    // google::InitGoogleLogging(argv[0]);
 
     // Set random seed.
     srand(0);

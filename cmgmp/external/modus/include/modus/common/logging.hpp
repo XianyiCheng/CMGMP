@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <sstream>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 #include <modus/common/serialization.hpp>
 #include <cereal/archives/json.hpp>
 #include <cereal/archives/xml.hpp>
@@ -113,16 +113,16 @@ EnumerateSSModesInputPtr CreateInput(const Eigen::MatrixXd& N,
                                      double eps);
 
 template <typename InputPtr>
-void WriteInputToLog(const InputPtr input) {
-    std::ostringstream strstream;
-    {
-        cereal::JSONOutputArchive archive(strstream);
-        archive(CEREAL_NVP(input));
-    }
-    LOG(INFO) << "\n" << input->Name() << "\n" << strstream.str();
-    LOG(INFO) << "EOI";
-    google::FlushLogFiles(google::INFO);
-}
+// void WriteInputToLog(const InputPtr input) {
+//     std::ostringstream strstream;
+//     {
+//         cereal::JSONOutputArchive archive(strstream);
+//         archive(CEREAL_NVP(input));
+//     }
+//     LOG(INFO) << "\n" << input->Name() << "\n" << strstream.str();
+//     LOG(INFO) << "EOI";
+//     google::FlushLogFiles(google::INFO);
+// }
 
 InputPtr NextInputFromLog(std::istream& is);
 

@@ -2,7 +2,7 @@
 #include <modus/modes/geometry/interior_point.hpp>
 #include <modus/modes/geometry/convex_hull.hpp>
 #include <modus/common/linear_algebra.hpp>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 #include <iomanip>
 #include <chrono>
 #include <iostream>
@@ -49,10 +49,10 @@ IncidenceGraph* halfspace_intersection(const Eigen::MatrixXd& N,
         << " ms" << std::endl;
         start = std::chrono::high_resolution_clock::now();
     }
-    if (DEBUG) {
-        DLOG(INFO) << "\t\nint pt\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
-        << r << std::endl;
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "\t\nint pt\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
+    //     << r << std::endl;
+    // }
 
     /**************************************************************************
      * 2. Partition hyperplanes.                                              *
@@ -89,12 +89,12 @@ IncidenceGraph* halfspace_intersection(const Eigen::MatrixXd& N,
     qr.compute(kernel);
     Eigen::VectorXd tmp = qr.solve(r); // Project interior point.
     r = tmp;
-    if (DEBUG) {
-        DLOG(INFO) << "\t\nkernel\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
-        << kernel << std::endl;
-        DLOG(INFO) << "\t\nN_proj\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
-        << N_proj << std::endl;
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "\t\nkernel\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
+    //     << kernel << std::endl;
+    //     DLOG(INFO) << "\t\nN_proj\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
+    //     << N_proj << std::endl;
+    // }
 
     // Get affine subspace.
     Eigen::MatrixXd affine = orth(N_s.transpose(), eps);
@@ -103,12 +103,12 @@ IncidenceGraph* halfspace_intersection(const Eigen::MatrixXd& N,
     N_c = N_c * affine;
     N_proj = N_proj * affine;
     r = affine.transpose() * r;
-    if (DEBUG) {
-        DLOG(INFO) << "\t\notho\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
-        << affine << std::endl;
-        DLOG(INFO) << "\t\nN_proj\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
-        << N_proj << std::endl;
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "\t\notho\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
+    //     << affine << std::endl;
+    //     DLOG(INFO) << "\t\nN_proj\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
+    //     << N_proj << std::endl;
+    // }
 
     // Get dual points.
     Eigen::VectorXd b_off = b_s - N_s * r;

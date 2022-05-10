@@ -1,6 +1,6 @@
 #include <modus/modes/geometry/convex_hull.hpp>
 #include <modus/modes/geometry/incidence_graph.hpp>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 #include <iostream>
 #include <iomanip>
 #include <chrono>

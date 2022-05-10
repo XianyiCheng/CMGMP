@@ -4,6 +4,8 @@
 // #include <modus/common/logging.hpp>
 
 void test_8_contacts(){
+    printf("Test 8 contacts "); 
+
     ContactConstraints cons(2);
 
     std::vector<ContactPoint> envs;
@@ -73,6 +75,7 @@ void test_8_contacts(){
 }
 
 void test_1_contacts(){
+    printf("Test 1 contacts "); 
     ContactConstraints cons(2);
 
     std::vector<ContactPoint> envs;
@@ -113,4 +116,5 @@ void test_1_contacts(){
 
 int main(int argc, char **argv){
     test_8_contacts();
+    test_1_contacts();
 }

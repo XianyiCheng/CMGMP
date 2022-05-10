@@ -27,11 +27,11 @@ target_include_directories(modus_modes
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
     ${EIGEN3_INCLUDE_DIR}
-    ${ORTOOLS_INCLUDE_DIR}
     ${QHULL_INCLUDE_DIR})
+    #${ORTOOLS_INCLUDE_DIR})
 
 # Add compiler requirements here.
 target_compile_features(modus_modes PUBLIC cxx_std_17)
 
 # Link libraries.
-target_link_libraries(modus_modes modus_common modus_kinematics ${QHULLCPP_LIBRARY} ${QHULL_R_LIBRARY} ortools::ortools)
+target_link_libraries(modus_modes modus_common modus_kinematics ${QHULLCPP_LIBRARY} ${QHULL_R_LIBRARY} )#ortools::ortools)

@@ -4,10 +4,10 @@ cmake_minimum_required(VERSION 3.14)
 set(MODUS_COMMON_SOURCE
   assert.cpp
   backward.cpp
-  logging.cpp
   serialization.cpp
   convex_hull.cpp
   linear_algebra.cpp
+  # logging.cpp
 )
 
 add_library(modus_common SHARED ${MODUS_COMMON_SOURCE})

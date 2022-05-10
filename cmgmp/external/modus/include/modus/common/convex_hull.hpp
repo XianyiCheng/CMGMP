@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <modus/common/eigen.hpp>
 
 namespace modus 

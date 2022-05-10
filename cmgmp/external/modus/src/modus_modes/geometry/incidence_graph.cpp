@@ -4,7 +4,7 @@
 #include <modus/common/assert.hpp>
 #include <iostream>
 #include <iomanip>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 
 
 static int DEBUG=0;
@@ -40,10 +40,10 @@ std::string get_color_ah_string(int color) {
 
 int get_position(double v, double eps) {
     MODUS_ASSERT(eps > 0);
-    if (WARN_TOL && std::abs(v) < 2 * eps && 0.5 * eps < std::abs(v)) {
-        LOG(WARNING) << "Approaching tolerance limits: " 
-        << 0.5*eps << " < " << std::abs(v) << " < " << 2*eps << std::endl;
-    }
+    // if (WARN_TOL && std::abs(v) < 2 * eps && 0.5 * eps < std::abs(v)) {
+    //     // LOG(WARNING) << "Approaching tolerance limits: " 
+    //     // << 0.5*eps << " < " << std::abs(v) << " < " << 2*eps << std::endl;
+    // }
     if (v > eps) {
         return 1;
     } else if (v < -eps) {
@@ -55,10 +55,10 @@ int get_position(double v, double eps) {
 
 char get_sign(double v, double eps) {
     MODUS_ASSERT(eps > 0);
-    if (WARN_TOL && std::abs(v) < 2 * eps && 0.5 * eps < std::abs(v)) {
-        LOG(WARNING) << "Approaching tolerance limits: " 
-        << 0.5*eps << " < " << std::abs(v) << " < " << 2*eps << std::endl;
-    }
+    // if (WARN_TOL && std::abs(v) < 2 * eps && 0.5 * eps < std::abs(v)) {
+    //     LOG(WARNING) << "Approaching tolerance limits: " 
+    //     << 0.5*eps << " < " << std::abs(v) << " < " << 2*eps << std::endl;
+    // }
     if (v > eps) {
         return '+';
     } else if (v < -eps) {

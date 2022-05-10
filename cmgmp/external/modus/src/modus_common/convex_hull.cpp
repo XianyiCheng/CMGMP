@@ -1,7 +1,8 @@
 #include <modus/common/convex_hull.hpp>
 #include <modus/common/linear_algebra.hpp>
 
-#include <glog/logging.h>
+// #include <glog/logging.h>
+#include <vector>
 #include <iostream>
 #include <iomanip>
 #include <chrono>
@@ -172,7 +173,7 @@ Eigen::MatrixXi modus::ConvexHull(const Eigen::MatrixXd& pts, double eps) {
   return M_;
 }
 
-std::vector<Eigen::VectorXi> modus::ConvertIncidenceMatrixToSimplices
+Simplices modus::ConvertIncidenceMatrixToSimplices
   (const Eigen::MatrixXi& M)
 {
   // rows = vertices, cols = facets

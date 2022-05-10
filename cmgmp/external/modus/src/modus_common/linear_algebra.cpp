@@ -1,6 +1,6 @@
 #include <modus/common/linear_algebra.hpp>
 #include <modus/modes/geometry/incidence_graph.hpp>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 #include <iostream>
 #include <iomanip>
 
@@ -41,9 +41,9 @@ std::vector<int> lexographic_argsort(const Eigen::MatrixXd& H) {
     for (int i = 0; i < H_.size(); i++) {
       H_o.row(i) = H_[i].first.transpose();
     }
-    DLOG(INFO) << "\nlexographical order" << "\n"
-           << std::fixed << std::setprecision(6) << std::setfill(' ')
-           << H_o.format(CleanFmt) << std::endl;
+    // DLOG(INFO) << "\nlexographical order" << "\n"
+    //        << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //        << H_o.format(CleanFmt) << std::endl;
   }
   // Extract indices.
   std::vector<int> I;

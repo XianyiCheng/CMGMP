@@ -6,8 +6,8 @@
 #include <modus/modes/geometry/halfspace_intersection.hpp>
 #include <modus/modes/preprocess/matroid_preprocessor.hpp>
 #include <modus/common/assert.hpp>
-#include <modus/common/logging.hpp>
-#include <glog/logging.h>
+// #include <modus/common/logging.hpp>
+// #include <glog/logging.h>
 #include <iostream>
 #include <iomanip>
 #include <chrono>
@@ -109,10 +109,10 @@ IncidenceGraph* enumerate_cs_modes(const Eigen::MatrixXd& N,
     Eigen::MatrixXd dual_aff;
     project_affine(dual.transpose(), eps, dual_aff);
     int d_eff = dual_aff.rows();
-    if (DEBUG) {
-        DLOG(INFO) << "\n\t" << std::fixed << std::setprecision(6) << std::setfill(' ') 
-        << "dual points:\n" << dual;
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "\n\t" << std::fixed << std::setprecision(6) << std::setfill(' ') 
+    //     << "dual points:\n" << dual;
+    // }
 
     // Remove duplicate points.
     Eigen::VectorXi idx_unique = UniqueRows(dual_aff.transpose(), eps);
@@ -121,10 +121,10 @@ IncidenceGraph* enumerate_cs_modes(const Eigen::MatrixXd& N,
     N_s = GetRows(N_s, idx_unique);
     b_s = GetRows(b_s, idx_unique);
     n_s = N_s.rows();
-    if (DEBUG) {
-        DLOG(INFO) << "N_s\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
-        << N_s << std::endl;
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "N_s\n" << std::fixed << std::setprecision(6) << std::setfill(' ') 
+    //     << N_s << std::endl;
+    // }
 
     if (PROFILE) {
         auto end = std::chrono::high_resolution_clock::now();
@@ -275,13 +275,13 @@ IncidenceGraph* enumerate_ss_modes(const Eigen::MatrixXd& N,
     b.resize(NsTc.rows());
     b.setZero();
     b.block(0,0,n_ns,1) = GetRows(d, index_Ns);
-    if (DEBUG) {
-        DLOG(INFO) << "\nPartition hyperplanes:\n"
-                   << "\tNc: " << Nc.rows() << "x" << Nc.cols() << "\n"
-                   << "\tNs: " << Ns.rows() << "x" << Ns.cols() << "\n"
-                   << "\tTc: " << Tc.rows() << "x" << Tc.cols() << "\n"
-                   << "\tNsTc: " << NsTc.rows() << "x" << NsTc.cols();
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "\nPartition hyperplanes:\n"
+    //                << "\tNc: " << Nc.rows() << "x" << Nc.cols() << "\n"
+    //                << "\tNs: " << Ns.rows() << "x" << Ns.cols() << "\n"
+    //                << "\tTc: " << Tc.rows() << "x" << Tc.cols() << "\n"
+    //                << "\tNsTc: " << NsTc.rows() << "x" << NsTc.cols();
+    // }
 
     if (PROFILE) {
         auto end = std::chrono::high_resolution_clock::now();
@@ -311,16 +311,16 @@ IncidenceGraph* enumerate_ss_modes(const Eigen::MatrixXd& N,
     Tc = Tc * rowspace;
     NsTc = NsTc * rowspace;
     N_proj = N_proj * rowspace;
-    if (DEBUG) {
-        DLOG(INFO) << "\n"
-        << "Project hyperplanes:\n"
-        << "\t  Nc null: " << dim << " -> " << kernel.cols() << "\n"
-        << "\tNsTc orth: " << kernel.cols() << " -> " << rowspace.cols() << "\n"
-        << PrettyMatrix(Ns, 
-           "\t       Ns:") << "\n"
-        << PrettyMatrix(Tc, 
-           "\t       Tc:") << "\n";
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "\n"
+    //     << "Project hyperplanes:\n"
+    //     << "\t  Nc null: " << dim << " -> " << kernel.cols() << "\n"
+    //     << "\tNsTc orth: " << kernel.cols() << " -> " << rowspace.cols() << "\n"
+    //     << PrettyMatrix(Ns, 
+    //        "\t       Ns:") << "\n"
+    //     << PrettyMatrix(Tc, 
+    //        "\t       Tc:") << "\n";
+    // }
 
     if (PROFILE) {
         auto end = std::chrono::high_resolution_clock::now();
@@ -392,16 +392,16 @@ IncidenceGraph* enumerate_ss_modes(const Eigen::MatrixXd& N,
         n_ns += sides[i] == 2;
     }
 
-    if (DEBUG) {
-        DLOG(INFO) << "\n"
-        << "Preprocess hyperplanes:" << "\n"
-        << "\tNsTc dim: " << NsTc.rows() << "x" << NsTc.cols() << "\n"
-        << "\t  Ns dim: " << n_ns << "x" << d_ns << "\n"
-        << PrettyMatrix(NsTc, 
-           "\t    NsTc:") << "\n"
-        << PrettyMatrix(b,    
-           "\t       b:") << "\n";
-    }
+    // if (DEBUG) {
+    //     DLOG(INFO) << "\n"
+    //     << "Preprocess hyperplanes:" << "\n"
+    //     << "\tNsTc dim: " << NsTc.rows() << "x" << NsTc.cols() << "\n"
+    //     << "\t  Ns dim: " << n_ns << "x" << d_ns << "\n"
+    //     << PrettyMatrix(NsTc, 
+    //        "\t    NsTc:") << "\n"
+    //     << PrettyMatrix(b,    
+    //        "\t       b:") << "\n";
+    // }
 
     /**************************************************************************
      * 4. Initialize the hyperplane arrangement using one of the following:   *
@@ -588,7 +588,7 @@ IncidenceGraph* modus::EnumerateCSModes(const Eigen::MatrixXd& N,
     } catch (...) {
         std::cout << "WTF"<< std::endl;
         // Log inputs.
-        WriteInputToLog(CreateInput(N, d, eps));
+        // WriteInputToLog(CreateInput(N, d, eps));
     }
 
     return nullptr;
@@ -622,7 +622,7 @@ IncidenceGraph* modus::EnumerateSSModes(const Eigen::MatrixXd& N,
     } catch (...) {
         std::cout << "WTF"<< std::endl;
         // Log inputs.
-        WriteInputToLog(CreateInput(N, d, T, cs_mode, eps));
+        // WriteInputToLog(CreateInput(N, d, T, cs_mode, eps));
     }
 
     return nullptr;

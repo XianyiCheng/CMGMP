@@ -3,7 +3,7 @@
 #include <modus/common/linear_algebra.hpp>
 #include <modus/modes/geometry/convex_hull.hpp>
 #include <modus/common/assert.hpp>
-#include <glog/logging.h>
+// #include <glog/logging.h>
 #include <chrono>
 #include <iostream>
 #include <list>
@@ -444,13 +444,13 @@ void partial_preprocess_hyperplanes(Eigen::MatrixXd& A,
     Eigen::VectorXi sides_;
     MODUS_ASSERT(A.size() > 0);
 
-    if (DEBUG) {
-        Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
-        DLOG(INFO) << "\noriginal" << "\n"
-                   << std::fixed << std::setprecision(6) << std::setfill(' ')
-                   << A.format(CleanFmt) << "\n"
-                   << sides.transpose().format(CleanFmt);
-    }
+    // if (DEBUG) {
+    //     Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
+    //     DLOG(INFO) << "\noriginal" << "\n"
+    //                << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //                << A.format(CleanFmt) << "\n"
+    //                << sides.transpose().format(CleanFmt);
+    // }
 
     // Remove duplicate hyperplanes, favoring sides=2 over sides=3.
     std::vector<int> lex_order = lexographic_argsort(A);
@@ -481,13 +481,13 @@ void partial_preprocess_hyperplanes(Eigen::MatrixXd& A,
             sides_[k] = sides[i1];
         }
     }
-    if (DEBUG) {
-        Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
-        DLOG(INFO) << "\nunique" << "\n"
-                   << std::fixed << std::setprecision(6) << std::setfill(' ')
-                   << A_.format(CleanFmt) << "\n"
-                   << sides_.transpose().format(CleanFmt);
-    }
+    // if (DEBUG) {
+    //     Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
+    //     DLOG(INFO) << "\nunique" << "\n"
+    //                << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //                << A_.format(CleanFmt) << "\n"
+    //                << sides_.transpose().format(CleanFmt);
+    // }
 
     // Reorder hyperplanes so that sides=2 is first.
     k = 0;
@@ -499,13 +499,13 @@ void partial_preprocess_hyperplanes(Eigen::MatrixXd& A,
             k++;
         }
     }
-    if (DEBUG) {
-        Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
-        DLOG(INFO) << "\nside order" << "\n"
-                   << std::fixed << std::setprecision(6) << std::setfill(' ')
-                   << A_.format(CleanFmt) << "\n"
-                   << sides_.transpose().format(CleanFmt);
-    }
+    // if (DEBUG) {
+    //     Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
+    //     DLOG(INFO) << "\nside order" << "\n"
+    //                << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //                << A_.format(CleanFmt) << "\n"
+    //                << sides_.transpose().format(CleanFmt);
+    // }
 
     // Reorder hyperplanes to be linearly independent in top d rows.
     std::vector<int> li_order = initial_hyperplanes(A_, b_, eps);
@@ -513,13 +513,13 @@ void partial_preprocess_hyperplanes(Eigen::MatrixXd& A,
     for (int i = 0; i < li_order.size(); i++) {
         sides_2[i] = sides_[li_order[i]];
     }
-    if (DEBUG) {
-        Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
-        DLOG(INFO) << "\nlinearly indepdendent" << "\n"
-                   << std::fixed << std::setprecision(6) << std::setfill(' ')
-                   << A_.format(CleanFmt) << "\n"
-                   << sides_2.transpose().format(CleanFmt);
-    }
+    // if (DEBUG) {
+    //     Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
+    //     DLOG(INFO) << "\nlinearly indepdendent" << "\n"
+    //                << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //                << A_.format(CleanFmt) << "\n"
+    //                << sides_2.transpose().format(CleanFmt);
+    // }
 
     // Remove 0 hyperplanes and output.
     int n_nonzero = 0;
@@ -542,13 +542,13 @@ void partial_preprocess_hyperplanes(Eigen::MatrixXd& A,
         sides.row(k) = sides_2.row(i);
         k++;
     }
-    if (DEBUG) {
-        Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
-        DLOG(INFO) << "\nnonzero" << "\n"
-                   << std::fixed << std::setprecision(6) << std::setfill(' ')
-                   << A.format(CleanFmt) << "\n"
-                   << sides.transpose().format(CleanFmt);
-    }
+    // if (DEBUG) {
+    //     Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "[", "]");
+    //     DLOG(INFO) << "\nnonzero" << "\n"
+    //                << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //                << A.format(CleanFmt) << "\n"
+    //                << sides.transpose().format(CleanFmt);
+    // }
 
     // // Output.
     // A = A_;
@@ -574,9 +574,9 @@ IncidenceGraph* partial_initial_arrangement(const Eigen::MatrixXd& A,
         Eigen::ColPivHouseholderQR<Eigen::MatrixXd> qr;
         qr.setThreshold(eps);
         qr.compute(A.topRows(d));
-        if (qr.rank() != d) {
-            DLOG(ERROR) << "rank " << qr.rank() << " != " << d;
-        }
+        // if (qr.rank() != d) {
+        //     DLOG(ERROR) << "rank " << qr.rank() << " != " << d;
+        // }
         MODUS_ASSERT(qr.rank() == d);
     }
 
@@ -799,8 +799,8 @@ IncidenceGraph* partial_initial_convex(const Eigen::MatrixXd& A,
     Eigen::VectorXd tmp = qr.solve(r); // Project interior point.
     r = tmp;
     Eigen::IOFormat CleanFmt(4, 0, ", ", "\n", "\t\t[", "]");
-    DLOG(INFO) << "\n" << "A_proj" << std::fixed << std::setprecision(6) << std::setfill(' ')
-     << "\nA_proj\n" << A_proj.format(CleanFmt) << std::endl;
+    // DLOG(INFO) << "\n" << "A_proj" << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //  << "\nA_proj\n" << A_proj.format(CleanFmt) << std::endl;
 
     // Get affine subspace.
     Eigen::MatrixXd affine = orth(A_s.transpose(), eps);
@@ -810,8 +810,8 @@ IncidenceGraph* partial_initial_convex(const Eigen::MatrixXd& A,
     A_proj = A_proj * affine;
     r = affine.transpose() * r;
     
-    DLOG(INFO) << "\n" << "A_proj" << std::fixed << std::setprecision(6) << std::setfill(' ')
-     << "\nA_proj\n" << A_proj.format(CleanFmt) << "\n" << b.transpose() << std::endl;
+    // DLOG(INFO) << "\n" << "A_proj" << std::fixed << std::setprecision(6) << std::setfill(' ')
+    //  << "\nA_proj\n" << A_proj.format(CleanFmt) << "\n" << b.transpose() << std::endl;
 
     // Get dual points.
     Eigen::VectorXd b_off = b_s - A_s * r;

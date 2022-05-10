@@ -34,7 +34,7 @@ include(GNUInstallDirs)
 
 # find_package(Eigen3 3.3 REQUIRED)
 set(EIGEN3_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/../eigen3")
-find_package(ortools CONFIG REQUIRED)
+# find_package(ortools CONFIG REQUIRED)
 find_package(Qhull REQUIRED)
 
 
