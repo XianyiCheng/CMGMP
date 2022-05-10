@@ -9,6 +9,7 @@
     #include "../dart_utils/dart_utils.h"
 #endif
 
+#include <dart/collision/bullet/BulletCollisionDetector.hpp>
 
 void DartWorldWindow::timeStepping() 
 {
@@ -44,9 +45,9 @@ DartWorld::DartWorld()
     // auto fcl_collision = FCLCollisionDetector::create();
     // auto b_collision = DARTCollisionDetector::create();
     
-    world->getConstraintSolver()->setCollisionDetector(DARTCollisionDetector::create());
+    // world->getConstraintSolver()->setCollisionDetector(DARTCollisionDetector::create());
 
-    // world->getConstraintSolver()->setCollisionDetector(BulletCollisionDetector::create());
+    world->getConstraintSolver()->setCollisionDetector(BulletCollisionDetector::create());
 }
 
 void DartWorld::addEnvironmentComponent(const SkeletonPtr& env){

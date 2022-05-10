@@ -24,7 +24,7 @@ Matrix3d znormal2rotmat(Vector3d normal){
 }
 
 DartKR5::DartKR5(){
-    this->loadManipulator("KR5", "/home/xianyi/libraries/dart/data/urdf/KR5/KR5 sixx R650.urdf");
+    this->loadManipulator("KR5", "/home/xianyi/Research/CMGMP/data/urdf/KR5/KR5 sixx R650.urdf");
     this->n_pts = 1;
     this->ifCheckObjectCollision = true;
     this->NumDofs = this->bodies[0]->getNumJoints();

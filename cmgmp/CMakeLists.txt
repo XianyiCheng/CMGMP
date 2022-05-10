@@ -8,7 +8,7 @@ set(cmgmp_required_libraries
 
 set(modus_libs modus_common modus_modes)
 
-set(dart_libs dart dart-utils-urdf dart-gui) # dart-collision-bullet
+set(dart_libs dart dart-utils-urdf dart-gui dart-collision-bullet)
 
 
 set(cmgmp_include_dirs 

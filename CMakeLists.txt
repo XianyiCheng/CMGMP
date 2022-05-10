@@ -11,7 +11,7 @@ else()
 endif()
 
 add_subdirectory(cmgmp)
-add_subdirectory(examples)
+#add_subdirectory(examples)
 add_subdirectory(tests)
 
 
