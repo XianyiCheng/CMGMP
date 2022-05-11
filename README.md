@@ -8,6 +8,16 @@ sudo apt-get install libglpk-dev libeigen3-dev libassimp-dev libccd-dev libfcl-d
 ```
 install qhull
 
+```
+git clone https://github.com/qhull/qhull.git
+cd qhull
+cd build
+cmake ..
+make
+ctest
+sudo make install
+```
+
 Update the external libraries
 ```
 git submodule update --init --recursive --progress
