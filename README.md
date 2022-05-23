@@ -1,5 +1,6 @@
+The following build process is tested on a clean Ubuntu 20.04 system.
 
-install 
+Install dependent libraries
 ```   
 sudo apt-get install build-essential cmake pkg-config git
 
