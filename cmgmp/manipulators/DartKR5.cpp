@@ -1,7 +1,11 @@
 #include "DartKR5.h"
 #include "../utilities/sample_grasp.h"
 #include "../contacts/contact_kinematics.h"
-
+#ifdef SRC_DIR
+    #define _SRC_DIR std::string(SRC_DIR)
+#else
+    #define _SRC_DIR std::string("../../")
+#endif
 Matrix3d znormal2rotmat(Vector3d normal){
     Vector3d z(0,0,1); 
     Vector3d rotvec = z.cross(normal);
@@ -24,7 +28,8 @@ Matrix3d znormal2rotmat(Vector3d normal){
 }
 
 DartKR5::DartKR5(){
-    this->loadManipulator("KR5", "/home/xianyi/Research/CMGMP/data/urdf/KR5/KR5 sixx R650.urdf");
+    // std::cout << "use source dir:" << _SRC_DIR << std::endl;
+    this->loadManipulator("KR5", _SRC_DIR + "/data/urdf/KR5/KR5 sixx R650.urdf");
     this->n_pts = 1;
     this->ifCheckObjectCollision = true;
     this->NumDofs = this->bodies[0]->getNumJoints();
