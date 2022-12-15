@@ -746,6 +746,9 @@ void Node::update_interior_point(double eps) {
             // Find an index where edge and vertex keys disagree.
             Eigen::VectorXi idx;
             arg_not_equal(e_sv, v_sv, idx);
+            if (idx.size() == 0){
+                return;
+            }
             int i = idx[0];
             if (DEBUG) {
                 MODUS_ASSERT(e_sv[i] != '0');

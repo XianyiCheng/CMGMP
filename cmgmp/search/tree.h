@@ -13,7 +13,7 @@
   #include "../contacts/contact_constraints.h"
 #endif
 
-
+namespace CMGMP {
 struct Node {
     Vector7d config; // x, y, z, qx, qy, qz, qw
     int parent = -1; 
@@ -60,3 +60,4 @@ public:
   // void remove_parent(int node_idx);
   // void set_parent(int parent, int child);
 };
+}

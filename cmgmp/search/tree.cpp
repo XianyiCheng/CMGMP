@@ -1,5 +1,6 @@
 #include "tree.h"
 
+namespace CMGMP {
 
 Tree::Tree(const double& a_weight, const double& p_weight){
     this->angle_weight = a_weight;
@@ -150,3 +151,4 @@ void Tree::add_node(Node* n, int parent_idx, Edge* e)
 //     nodes[parent].children.push_back(child);
 //     nodes[child].parent = parent;
 // }
+}

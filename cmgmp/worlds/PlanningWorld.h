@@ -55,9 +55,6 @@ public:
         const VectorXd& mnp_config, const std::vector<ContactPoint>& envs_, const VectorXi& env_mode, const Vector6d& f_ext_w,
         double wt, double wa, std::vector<Vector7d>* path, bool ifquasidynamic = false);
     
-    bool ForwardIntegration_ObjectPath(const Vector7d& x_start, const Vector7d& x_goal, 
-        const std::vector<ContactPoint>& envs_, const VectorXi& env_mode,
-        double wt, double wa, std::vector<Vector7d>* path);
 
     // void addManipulatorGraphics();
 

@@ -10,7 +10,7 @@ else()
     message("cannot find bullet")
 endif()
 
-
+add_definitions(-DSRC_DIR="${PROJECT_SOURCE_DIR}")
 
 add_subdirectory(cmgmp)
 add_subdirectory(examples)

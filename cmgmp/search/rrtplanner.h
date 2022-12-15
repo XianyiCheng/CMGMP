@@ -40,6 +40,8 @@
 
 // };
 
+using namespace CMGMP;
+
 class RRTPlanner{
 
 public:

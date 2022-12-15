@@ -46,6 +46,9 @@ void DartPointManipulator::setConfig(const VectorXd& config, const Vector7d& obj
         if (i < n){
             pos.tail(3) = R*Vector3d(config[6*i], config[6*i+1], config[6*i+2]) + p;
         }
+        else{
+            pos.tail(3) = Vector3d(100,100,100);
+        }
         this->bodies[i]->setPositions(pos);
     }
 }
@@ -115,6 +118,7 @@ bool DartPointManipulator::resampleFingers(int n_on, const VectorXd& config, con
 
     // new configuration
     new_config.resize(new_samples.size()*6);
+
     for (int i = 0; i < new_samples.size(); i++){
         new_config.segment(6*i,3) = new_samples[i].p;
         new_config.segment(6*i+3,3) = new_samples[i].n;
@@ -128,7 +132,25 @@ bool DartPointManipulator::resampleFingers(int n_on, const VectorXd& config, con
 void DartPointManipulator::Fingertips2PointContacts(const std::vector<ContactPoint>& fingertips,
  std::vector<ContactPoint>* point_contacts){
   
-     copy_points(fingertips, point_contacts);
+  if (is_patch_contact) {
+    Matrix3d xs;
+    xs << 1, 0, 0, -0.5, 0.865, 0, -0.5, -0.865, 0;
+
+    double r = this->fingertip_radius;
+    for (auto &pt : fingertips) {
+      Matrix6d Adgco = contact_jacobian(pt.p, pt.n);
+      Matrix3d Roc = Adgco.topLeftCorner(3, 3).transpose();
+      for (int i = 0; i < 3; i++) {
+        ContactPoint gpt;
+        gpt.p = pt.p + r * Roc * (xs.row(i)).transpose();
+        gpt.n = pt.n;
+        gpt.d = 0;
+        point_contacts->push_back(gpt);
+      }
+    }
+  } else {
+    copy_points(fingertips, point_contacts);
+  }
     
  }
 

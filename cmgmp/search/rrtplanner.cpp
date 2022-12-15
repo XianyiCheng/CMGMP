@@ -27,6 +27,8 @@
 
 #include <ctime>
 
+
+
 double dist_vel(const Vector6d& v, const Vector6d& v0, double wt, double wa){
     double d = wt*(v-v0).block(0,0,3,1).norm() + wa*(v-v0).block(3,0,3,1).norm();
     return d;
@@ -64,6 +66,23 @@ Vector7d steer_config(Vector7d x_near, Vector7d x_rand, double epsilon_translati
     x_steer << p_rand[0], p_rand[1], p_rand[2], double(q_rand.x()),  double(q_rand.y()),  double(q_rand.z()),  double(q_rand.w());
     return x_steer;
 }
+
+Vector7d steer_config_directional(Vector7d x_near, Vector7d x_rand, Vector6d v, double epsilon_translation, double epsilon_angle){
+    
+    // double epsilon_translation = 1.5;
+    // double epsilon_angle = 3.14*100/180;
+
+    Vector3d p_rand = x_rand.head(3);
+    Vector3d p_near = x_near.head(3);
+    Quaterniond q_near(x_near[6], x_near[3], x_near[4], x_near[5]); 
+    Quaterniond q_rand(x_rand[6], x_rand[3], x_rand[4], x_rand[5]); 
+    p_rand = steer_position(p_near, p_rand, epsilon_translation);
+    q_rand = steer_quaternion(q_near, q_rand, epsilon_angle);
+    Vector7d x_steer;
+    x_steer << p_rand[0], p_rand[1], p_rand[2], double(q_rand.x()),  double(q_rand.y()),  double(q_rand.z()),  double(q_rand.w());
+    return x_steer;
+}
+
 
 RRTPlanner::RRTPlanner(PlanningWorld* pw_){
     this->pw = pw_;

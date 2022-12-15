@@ -20,6 +20,8 @@ public:
 
     double fingertip_radius = 0;
 
+    bool is_patch_contact = false;
+
     DartPointManipulator(int n, double radius);
     DartPointManipulator(const DartPointManipulator& dpm): DartManipulatorTemplate(dpm), fingertip_radius(dpm.fingertip_radius){}
 
