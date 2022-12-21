@@ -552,8 +552,8 @@ bool PlanningWorld::ForwardIntegration(
     const Vector6d &f_ext_w, double wt, double wa, std::vector<Vector7d> *path,
     bool ifquasidynamic) {
 
-  std::cout << "Forward integration from: " << x_start.transpose() << std::endl;
-  std::cout << "mnp_config: " << mnp_config.transpose() << std::endl;
+  // std::cout << "Forward integration from: " << x_start.transpose() << std::endl;
+  // std::cout << "mnp_config: " << mnp_config.transpose() << std::endl;
 
   double thr = 1e-4;
   // double h = 0.02;
@@ -608,7 +608,7 @@ bool PlanningWorld::ForwardIntegration(
     Vector6d v_star = compute_rbvel_body(x, x_goal);
 
     if (v_star.norm() < thr) {
-      std::cout << "v_star < thr : " << v_star.transpose() << std::endl;
+      // std::cout << "v_star < thr : " << v_star.transpose() << std::endl;
       break;
     }
 
@@ -639,7 +639,7 @@ bool PlanningWorld::ForwardIntegration(
     // }
 
     if (v_b.norm() < thr) {
-      std::cout << "v_b < thr : " << v_b.transpose() << std::endl;
+      // std::cout << "v_b < thr : " << v_b.transpose() << std::endl;
       break;
     }
 
@@ -772,7 +772,7 @@ bool PlanningWorld::ForwardIntegration(
     }
   }
 
-  std::cout << "counter:" << counter << " x: " << x.transpose() << std::endl;
+  // std::cout << "counter:" << counter << " x: " << x.transpose() << std::endl;
 
   return ifmanipulatorcollide;
 }

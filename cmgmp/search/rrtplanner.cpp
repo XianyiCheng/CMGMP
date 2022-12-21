@@ -279,7 +279,7 @@ void RRTPlanner::Extend_QPCC(int near_idx, Vector7d x_rand_){
     double d_zero = dist_vel(v_zero, v_star, T->translation_weight, T->angle_weight);
     for(const auto& cs_mode: T->nodes[near_idx].modes){
 
-        std::cout << "cs mode " << cs_mode.transpose() << std::endl;
+        // std::cout << "cs mode " << cs_mode.transpose() << std::endl;
 
         std::vector<VectorXi> modes;
 
@@ -314,7 +314,7 @@ void RRTPlanner::Extend_QPCC(int near_idx, Vector7d x_rand_){
                 mode_best = mode;
             }
         }
-        std::cout << "best mode " << mode_best.transpose() << std::endl; 
+        // std::cout << "best mode " << mode_best.transpose() << std::endl; 
         
         if(dv_best < d_zero - 1e-4){
             mode_to_extend.push_back(mode_best);
@@ -324,7 +324,7 @@ void RRTPlanner::Extend_QPCC(int near_idx, Vector7d x_rand_){
 
         for (const auto& mode: mode_to_extend){
 
-            std::cout << "Extend mode: " << mode.transpose() << std::endl;
+            // std::cout << "Extend mode: " << mode.transpose() << std::endl;
             // check if we can try direct forward integration
             bool ifChangeFingertips = false;
 
@@ -368,7 +368,7 @@ void RRTPlanner::Extend_QPCC(int near_idx, Vector7d x_rand_){
             
                 if(!ifchanged){ 
                     // cannot find good mnp locations, continue to the next mode
-                    printf("Cannot find good mnp locations\n");
+                    // std::cout << "Cannot find good mnp locations" << std::endl;
                     continue;
                 } 
             } else {
@@ -443,7 +443,7 @@ void RRTPlanner::Extend_QPCC_Quasidynamic(int near_idx, Vector7d x_rand_){
     double d_zero = dist_vel(v_zero, v_star, T->translation_weight, T->angle_weight);
     for(const auto& cs_mode: T->nodes[near_idx].modes){
 
-        std::cout << "cs mode " << cs_mode.transpose() << std::endl;
+        // std::cout << "cs mode " << cs_mode.transpose() << std::endl;
 
         std::vector<VectorXi> modes;
 
@@ -476,7 +476,7 @@ void RRTPlanner::Extend_QPCC_Quasidynamic(int near_idx, Vector7d x_rand_){
                 mode_best = mode;
             }
         }
-        std::cout << "best mode " << mode_best.transpose() << std::endl; 
+        // std::cout << "best mode " << mode_best.transpose() << std::endl; 
         
         if(dv_best < d_zero - 1e-4){
             mode_to_extend.push_back(mode_best);
@@ -486,7 +486,7 @@ void RRTPlanner::Extend_QPCC_Quasidynamic(int near_idx, Vector7d x_rand_){
 
         for (const auto& mode: mode_to_extend){
 
-            std::cout << "Extend mode: " << mode.transpose() << std::endl;
+            // std::cout << "Extend mode: " << mode.transpose() << std::endl;
 
             Vector6d v_mode = this->pw->EnvironmentConstrainedVelocity(v_star, T->nodes[near_idx].envs, mode);
             // check if we can try direct forward integration
@@ -592,7 +592,7 @@ void RRTPlanner::Search(const RRTPlannerOptions& opts, Vector7d x_goal, double g
     std::clock_t c_start = std::clock();
 
     for(int kk = 0; kk <this->options->max_samples; kk++){
-        std::cout << "iter: " << kk << std::endl;
+        // std::cout << "iter: " << kk << std::endl;
         
         
         // bias sample toward the goal
@@ -626,7 +626,7 @@ void RRTPlanner::Search(const RRTPlannerOptions& opts, Vector7d x_goal, double g
             near_idx = 0;
         }
         
-        std::cout << "x_rand:" << x_rand.transpose() << ", near idx: "<< near_idx << std::endl;
+        // std::cout << "x_rand:" << x_rand.transpose() << ", near idx: "<< near_idx << std::endl;
 
         if (ifquasidynamic) {
             this->Extend_QPCC_Quasidynamic(near_idx, x_rand);
@@ -691,7 +691,7 @@ void RRTPlanner::Search(const RRTPlannerOptions& opts, Vector7d x_goal, double g
     
     time_cpu_s = double(c_end-c_start) / double(CLOCKS_PER_SEC);
     std::cout << "CPU time used: " << time_cpu_s << " s\n";
-    std::cout << "Goal idx " << goal_idx << std::endl;
+    // std::cout << "Goal idx " << goal_idx << std::endl;
     // backtrack
     T->backtrack(goal_idx, node_path);
     std::reverse(node_path->begin(), node_path->end());
@@ -717,4 +717,63 @@ void RRTPlanner::VisualizePath(const std::vector<int>& node_path){
 
     this->pw->world->setPlaybackTrajectory(object_poses, mnp_configs);
 
+}
+
+void RRTPlanner::printResults(const std::vector<int>& node_path, bool success, double time_cpu_s){
+    // visualization
+    std::vector<Vector7d> object_poses;
+    std::vector<VectorXd> mnp_configs;
+
+    for(auto& k:node_path){
+        if(k==0){continue;}
+        std::vector<Vector7d> path = T->edges[T->nodes[k].edge].path;
+        VectorXd mnp_config = T->nodes[k].manipulator_config;
+        // std::cout << mnp_config.transpose() << std::endl;
+        for (auto x: path){
+            object_poses.push_back(x);
+            mnp_configs.push_back(mnp_config);
+        }
+    }
+    
+
+    // Nodes in Tree
+    std::cout << "Nodes in Tree: " << T->nodes.size() << std::endl;
+    
+    // Solution length	
+    std::cout << "Solution length: " << node_path.size() << std::endl;
+    // Travel Distance	
+    double travel_dist = 0;
+    for (int k = 0; k < object_poses.size()-1; k++){
+        travel_dist += T->dist(object_poses[k], object_poses[k+1]);
+    }
+    double travel_dist_ratio = travel_dist/T->dist(object_poses[0], object_poses.back());
+
+    std::cout << "Travel Distance Ratio: " << travel_dist_ratio << std::endl;
+    
+    // Finger relocations
+    int finger_relocations = 1;
+    // std::cout << mnp_configs[0].transpose() << std::endl;
+    for (int k = 1; k < mnp_configs.size(); k++){
+        if (mnp_configs[k].size() != mnp_configs[k+1].size()){
+            // std::cout << mnp_config[k].transpose() << std::endl;
+            finger_relocations++;
+        } else {
+            bool is_same = true;
+            for (int i = 0; i < mnp_configs[k].size(); i++){
+                if (mnp_configs[k][i] != mnp_configs[k+1][i]){
+                    is_same = false;
+                    break;
+                }
+            }
+            if (!is_same){
+                finger_relocations++;
+                // std::cout << mnp_configs[k].transpose() << std::endl;
+            }
+        }
+    }
+    std::cout << "Finger relocations: " << finger_relocations << std::endl;
+
+    std::cout << time_cpu_s << "\t" << success << "\t"
+    << T->nodes.size() << "\t" << node_path.size() << "\t" 
+    << travel_dist_ratio << "\t" << finger_relocations << std::endl;
 }

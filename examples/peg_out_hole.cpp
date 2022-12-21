@@ -168,7 +168,9 @@ int main(int argc, char *argv[])
 
         planner.Search(options, x_goal, goal_thr, &path, success, t, false);
 
+        planner.printResults(path, success, t);
         planner.VisualizePath(path);
+        // 
     }
 
     pw.world->startWindow(&argc, argv);
