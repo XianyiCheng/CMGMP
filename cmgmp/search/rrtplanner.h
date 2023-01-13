@@ -94,7 +94,7 @@ public:
     void Search(const RRTPlannerOptions& opts, Vector7d x_goal, double goal_thr, std::vector<int>* node_path, bool& ifsuccess, double& planningtime, bool ifquasidynamic=false);
     void VisualizePath(const std::vector<int>& node_path);
 
-    void printResults(const std::vector<int>& node_path, bool success, double time_cpu_s);
+    void printResults(const std::vector<int>& node_path, bool success, double time_cpu_s, double grasp_measure_charac_length);
 
 };
 

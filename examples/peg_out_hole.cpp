@@ -113,7 +113,7 @@ void peg(Vector7d &x_start, Vector7d &x_goal, double &goal_thr,
 
 int main(int argc, char *argv[])
 {
-
+    
     RRTPlannerOptions options;
     options.goal_biased_prob = 0.7;
     options.max_samples = 500;
@@ -168,7 +168,8 @@ int main(int argc, char *argv[])
 
         planner.Search(options, x_goal, goal_thr, &path, success, t, false);
 
-        planner.printResults(path, success, t);
+        double grasp_measure_charac_length = 1.0;
+        planner.printResults(path, success, t, grasp_measure_charac_length);
         planner.VisualizePath(path);
         // 
     }
